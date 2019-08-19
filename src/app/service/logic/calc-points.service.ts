@@ -43,6 +43,7 @@ export class CalcPointsService {
     return Number.parseFloat(parseInt(this.fantasyPoints.toString(), 10).toFixed(2));
   }
   calculateKickerFantasy(kicker: Kicker): number {
+    this.fantasyPoints = 0;
     this.fantasyPoints =
       kicker.PAT +
       kicker.fg0To39 * 3 +

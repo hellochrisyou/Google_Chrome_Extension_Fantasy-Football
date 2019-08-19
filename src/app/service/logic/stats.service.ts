@@ -152,27 +152,27 @@ export class StatsService {
         points: 0
       };
       this.tmpKicker.name = kicker.name;
-      kicker.stats['33'] != null ? (this.tmpKicker.PAT = kicker.stats['33']) : (this.tmpKicker.PAT = 0);
+      kicker.stats['33'] != null ? (this.tmpKicker.PAT = parseInt(kicker.stats['33'])) : (this.tmpKicker.PAT = 0);
       if (kicker.stats['35'] != null) {
-        addCount += kicker.stats['35'];
+        addCount += parseInt(kicker.stats['35']);
       }
       if (kicker.stats['36'] != null) {
-        addCount += kicker.stats['36'];
+        addCount += parseInt(kicker.stats['36']);
       }
       if (kicker.stats['37'] != null) {
-        addCount += kicker.stats['37'];
+        addCount += parseInt(kicker.stats['37']);
       }
       this.tmpKicker.fg0To39 = addCount;
-      kicker.stats['38'] != null ? (this.tmpKicker.fg40To49 = kicker.stats['38']) : (this.tmpKicker.fg40To49 = 0);
-      kicker.stats['39'] != null ? (this.tmpKicker.fg50Plus = kicker.stats['39']) : (this.tmpKicker.fg50Plus = 0);
+      kicker.stats['38'] != null ? (this.tmpKicker.fg40To49 = parseInt(kicker.stats['38'])) : (this.tmpKicker.fg40To49 = 0);
+      kicker.stats['39'] != null ? (this.tmpKicker.fg50Plus = parseInt(kicker.stats['39'])) : (this.tmpKicker.fg50Plus = 0);
       if (kicker.stats['41'] != null) {
-        missCount += kicker.stats['41'];
+        missCount += parseInt(kicker.stats['41']);
       }
       if (kicker.stats['42'] != null) {
-        missCount += kicker.stats['42'];
+        missCount += parseInt(kicker.stats['42']);
       }
       this.tmpKicker.missFG0To39 = missCount;
-      kicker.stats['43'] != null ? (this.tmpKicker.missFG40To49 = kicker.stats['43']) : (this.tmpKicker.missFG40To49 = 0);
+      kicker.stats['43'] != null ? (this.tmpKicker.missFG40To49 = parseInt(kicker.stats['43'])) : (this.tmpKicker.missFG40To49 = 0);
       this.tmpKicker.points = this.calculateService.calculateKickerFantasy(this.tmpKicker);
 
       this.tmpKArray.push(this.tmpKicker);

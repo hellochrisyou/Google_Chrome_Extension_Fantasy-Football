@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CallApiService } from './service/call-api.service';
 import { Option, OptionsGroup } from './interface/interface';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,73 +14,71 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 export class AppComponent implements OnInit {
   title = 'Fantasy Football Chrome Extension';
   checked = false;
-  selection = '';
-  dateOptions: FormGroup;
+  weekSelection: any;
+  yearSelection = 0;
 
-  dateControl = new FormControl();
+  yearControl = new FormControl();
+  weekControl = new FormControl();
 
-  options: OptionsGroup[] = [
-    {
-      dateType: 'Week',
-      option: [
-        { value: 1 },
-        { value: 2 },
-        { value: 3 },
-        { value: 4 },
-        { value: 5 },
-        { value: 6 },
-        { value: 7 },
-        { value: 8 },
-        { value: 9 },
-        { value: 10 },
-        { value: 11 },
-        { value: 12 },
-        { value: 13 },
-        { value: 14 },
-        { value: 15 },
-        { value: 16 },
-        { value: 17 },
-      ]
-    },
-    {
-      dateType: 'Year',
-      option: [
-        { value: 2009 },
-        { value: 2010 },
-        { value: 2011 },
-        { value: 2012 },
-        { value: 2013 },
-        { value: 2014 },
-        { value: 2015 },
-        { value: 2016 },
-        { value: 2017 },
-        { value: 2018 },
-        { value: 2019 }
-      ]
-    },
+  weeks = [
+    "All",
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+  ]
+  years = [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
   ]
 
   constructor(private fb: FormBuilder, private callService: CallApiService) {
-    this.dateOptions = fb.group({
-      color: 'accent',
-    });
+
   }
 
   ngOnInit(): void {
-    this.callService.callNFLApi();
+    let dateObj = new Date();
+    let currentYear = dateObj.getFullYear();
+    for (let i = currentYear - 2019 - 1; i >= 0; i--) {
+      this.years.push(currentYear - i);
+      console.log(this.years);
+    }
+
   }
 
-  runApi(number: Number): void {
-    if (number > 0 && number < 18) {
-      this.callService.setQueryString('stats?statType=weekStats&week=' + number);
+  runApi(): void {
+
+
+    if (this.weekSelection == 'All') {
+      this.callService.setQueryString('stats?statType=seasonStats&season=' + this.yearSelection);
       this.callService.callNFLApi();
-    } else if (number > 2008 && number < 2050) {
-      this.callService.setQueryString('stats?statType=seasonStats&season=' + number);
+    } else if (this.weekSelection > 0 && this.yearSelection > 2008) {
+      this.callService.setQueryString('stats?statType=weekStats&week=' + this.weekSelection + '&season=' + this.yearSelection);
       this.callService.callNFLApi();
     } else {
       return;
     }
-
-
   }
 }

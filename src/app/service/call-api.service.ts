@@ -27,7 +27,6 @@ export class CallApiService {
   }
 
   callNFLApi(): void {
-    console.log(globals.ApiUrls.season + this.queryString + '&position=QB');
     this.getSeasonQB();
     this.getSeasonRB();
     this.getSeasonWR();
@@ -40,7 +39,6 @@ export class CallApiService {
     this.qbArray = [];
     this.api.httpGet(globals.ApiUrls.season + this.queryString + '&position=QB').subscribe(
       data => {
-        console.log('qbdata', data);
         this.qbArray = this.statsFunctionService.returnQbStats(data.players);
         this.notifyCompleteService.sendQBs(this.qbArray);
       },

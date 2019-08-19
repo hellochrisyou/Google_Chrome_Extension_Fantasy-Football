@@ -2,3 +2,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+tr:hover>td, tr:hover>th {
+    background-color: rgba(86, 98, 108, 0.2);
+  }
+
+.mat-tab-label-content {
+    color: white;
+    font-weight: 515;
+}

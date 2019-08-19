@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { throwError, Observable } from 'rxjs';
 import { Injectable, ErrorHandler } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
-import { ErrorHandlerGlobal } from '../error-handler/error-handler';
 
 const httpOptions = {
   headers: new HttpHeaders({})
@@ -26,10 +25,6 @@ export class ApiService {
       map(this.extractData)
     );
   }
-
-  // httpGetAll(url: string | null): Observable<League[]> {
-  //   return this.http.get<any[]>(url, httpOptions).pipe(catchError(this.handleError));
-  // }
 
   httpPost(url: string, bodyParam): Observable<any> {
     return this.http.post(url, bodyParam, httpOptions).pipe(
